@@ -1,0 +1,38 @@
+<div class="products">
+    <div class="product-listy">
+        <h2>our Products</h2>
+        <ul class="product-list">
+            <% current_site.the_post_type('commerce').the_categories.decorate.each do |cat| %>
+                <li><a href="<%= cat.the_url %>"><%= cat.the_title %></a></li>
+            <% end %>
+        </ul>
+    </div>
+
+    <% if current_theme.get_option('top_offer').present? %>
+        <% _product = current_site.the_post(current_theme.get_option('top_offer').to_i) %>
+        <% if _product.present? %>
+            <div class="latest-bis">
+                <a href="<%= _product.the_url %>">
+                    <img src="<%= current_theme.get_option('top_offer_image', _product.the_image_url) %>" class="img-responsive" alt="" />
+                </a>
+                <div class="offer">
+                    <p><%= current_theme.get_option('top_offer_percentage') %>%</p>
+                    <small>Top Offer</small>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
+
+    <% tags = product.the_tags.decorate %>
+    <% if tags.present? %>
+        <div class="tags">
+            <h4 class="tag_head">Tags Widget</h4>
+            <ul class="tags_links">
+                <% tags.each do |tag| %>
+                    <li><a href="<%= tag.the_url %>"><%= tag.the_title %></a></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+</div>

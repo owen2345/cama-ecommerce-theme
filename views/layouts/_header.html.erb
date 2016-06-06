@@ -1,0 +1,124 @@
+<!-- header-section-starts -->
+<div class="header">
+    <div class="header-top-strip">
+        <div class="container">
+            <div class="header-top-left">
+                <ul>
+                    <% unless cama_current_user.present? %>
+                        <li><a href="<%= plugins_ecommerce_login_path(return_to: site_current_url) %>"><span class="glyphicon glyphicon-user"> </span> Login</a></li>
+                        <li><a href="<%= plugins_ecommerce_register_url(return_to: site_current_url) %>"><span class="glyphicon glyphicon-lock"></span> Create an Account</a></li>
+                    <% else %>
+                        <li><a href="<%= cama_current_user.decorate.the_url %>"><span class="fa fa-user"> </span> <%= cama_current_user.the_name %></a></li>
+                        <li><a href="<%= plugins_ecommerce_orders_path %>"><span class="fa fa-cart"> </span> My Orders</a></li>
+                        <li><a href="<%= cama_admin_logout_url(return_to: site_current_url) %>"><span class="fa fa-sign-out"> </span> Logout</a></li>
+                    <% end %>
+                </ul>
+            </div>
+            <div class="header-right">
+                <div class="cart box_1">
+                    <% if cama_current_user.present? %>
+                        <% cart = current_site.carts.set_user(current_user).first_or_create(name: "Cart by #{current_user.id}").decorate %>
+                        <a href="<%= plugins_ecommerce_checkout_cart_path %>">
+                            <h3><span class=""> <%= cart.the_price  %> </span> (<span><%= cart.items_total %></span>)<img src="<%= theme_asset_url("images/bag.png") %>" alt=""></h3>
+                        </a>
+                        <p><a href="<%= plugins_ecommerce_checkout_cart_path %>" class="simpleCart_empty">My cart</a></p>
+                    <% end %>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+<!-- header-section-ends -->
+<div class="banner-top <%= 'inner-head' unless is_home? %>">
+    <div class="container">
+        <%= render 'camaleon_cms/flash_messages' %>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="logo">
+                    <h1><a href="<%= current_site.the_url %>"><span>E</span> -Shop</a></h1>
+                </div>
+            </div>
+            <!--/.navbar-header-->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <% cama_menu_parse_items(current_site.nav_menus.find_by_slug('main_menu').children).each do |item| %>
+                        <% if item[:has_children] %>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= item[:label] %> <b class="caret"></b></a>
+                                <% if item[:levels] <= 1 %>
+                                    <ul class="dropdown-menu">
+                                        <% item[:children].each_with_index do |ss_item, index| %>
+                                            <li><a href="<%= ss_item[:url] %>"><%= ss_item[:label] %></a></li>
+                                        <% end %>
+                                    </ul>
+                                <% else %>
+                                    <ul class="dropdown-menu multi-column pull-right columns-<%= (12/(12/item[:children].count).ceil).ceil %>">
+                                        <div class="row">
+                                            <% item[:children].each do |sub_item| %>
+                                                <div class="col-md-<%= (12/item[:children].count).ceil %>">
+                                                    <ul class="multi-column-dropdown">
+                                                        <% ((sub_item[:children] || []).unshift(sub_item)).each_with_index do |ss_item, index| %>
+                                                            <% if index > 0 %>
+                                                                <li class="<%= 'current_item' if ss_item[:current_item] %> <%= 'current_parent_item' if ss_item[:current_parent] %>"><a href="<%= ss_item[:url] %>"><%= ss_item[:label] %></a></li>
+                                                            <% else %>
+                                                                <h6><%= ss_item[:label] %></h6>
+                                                            <% end %>
+                                                        <% end %>
+                                                    </ul>
+                                                </div>
+                                            <% end %>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </ul>
+                                <% end %>
+                            </li>
+                        <% else %>
+                            <li><a href="<%= item[:url] %>"><%= item[:label] %></a></li>
+                        <% end %>
+                    <% end %>
+                </ul>
+            </div>
+            <!--/.navbar-collapse-->
+        </nav>
+        <!--/.navbar-->
+    </div>
+</div>
+
+<% if is_home? %>
+    <div class="banner" style="background-image: url('<%= current_theme.get_field('home_slider_bg', theme_asset_url('images/banner_img.jpg')) %>')">
+        <div class="container">
+            <div class="banner-bottom">
+                <div class="banner-bottom-left">
+                    <h2>B<br>U<br>Y</h2>
+                </div>
+                <div class="banner-bottom-right">
+                    <div  class="callbacks_container">
+                        <ul class="rslides" id="slider4">
+                            <% current_theme.the_fields('home_slider_tabs').each do |text| %>
+                                <li>
+                                    <div class="banner-info">
+                                        <h3><%= text %></h3>
+                                        <p><%= t('.start_shopping_here', default: 'Start shopping here...') %></p>
+                                    </div>
+                                </li>
+                            <% end %>
+                        </ul>
+                    </div>
+                    <script>$(function () { $("#slider4").responsiveSlides({ auto: true, pager: true, nav: false, speed: 500, namespace: "callbacks", before: function () { $('.events').append("<li>before event fired.</li>"); }, after: function () { $('.events').append("<li>after event fired.</li>"); }}); }); </script>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="shop">
+                <a href="<%= current_site.the_posts('commerce').where(id: current_theme.get_field('home_slider_product')).first.try(:decorate).try(:the_url) || '#' %>"><%= t('.shop_collection_now', default: 'Shop Collection Now') %></a>
+            </div>
+        </div>
+    </div>
+<% end %>

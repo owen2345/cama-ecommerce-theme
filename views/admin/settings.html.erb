@@ -1,0 +1,22 @@
+<% if (post_type = current_site.the_post_type('commerce')).present? %>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><%= t('.top_offer', default: 'Top Offer') %></h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label><%= t('.top_offer_product', default: 'Offer Product') %></label><br>
+                <%= select_tag "theme_option[top_offer]", options_from_collection_for_select(post_type.posts.public_posts.decorate, :id, :the_title, current_theme.get_option('top_offer')), include_blank: true, class: 'form-control' %>
+            </div>
+
+            <div class="form-group">
+                <label><%= t('.top_offer_image', default: 'Offer Image') %></label><br>
+                <%= hidden_field_tag "theme_option[top_offer_image]", current_theme.get_option('top_offer_image'), class: 'form-control input_upload', 'data-dimension' => '275x395' %>
+            </div>
+            <div class="form-group">
+                <label><%= t('.top_offer_percentage', default: 'Percentage Disccount') %></label><br>
+                <%= text_field_tag "theme_option[top_offer_percentage]", current_theme.get_option('top_offer_percentage', 0), class: 'form-control number' %>
+            </div>
+        </div>
+    </div>
+<% end %>

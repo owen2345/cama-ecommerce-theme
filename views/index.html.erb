@@ -1,0 +1,40 @@
+<div class="main-content">
+    <div class="online-strip">
+        <div class="col-md-4 follow-us">
+            <h3>follow us : <a class="btn btn-sm font20" href="#"><i class="fa fa-facebook"></i></a><a class="btn btn-sm font20" href="#"><i class="fa fa-twitter"></i></a></h3>
+        </div>
+        <div class="col-md-4 shipping-grid">
+            <div class="shipping">
+                <img src="<%= theme_asset_url("images/shipping.png") %>" alt="" />
+            </div>
+            <div class="shipping-text">
+                <h3>Free Shipping</h3>
+                <p>on orders over $ 199</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-md-4 online-order">
+            <p>Order online</p>
+            <h3>Tel:999 4567 8902</h3>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="products-grid">
+        <header>
+            <h3 class="head text-center">Latest Products</h3>
+        </header>
+        <% current_site.the_products.decorate.each do |product| %>
+            <div class="col-md-4 product simpleCart_shelfItem text-center">
+                <a href="<%= product.the_url %>">
+                    <img src="<%= product.the_thumb_url %>" alt="" /></a>
+                <div class="mask">
+                    <a href="<%= product.the_url %>">Quick View</a>
+                </div>
+                <a class="product_name" href="<%= product.the_url %>"><%= product.the_title %></a>
+                <p><a class="item_add" href="#"><i></i> <span class="item_price"><%= product.the_price %></span></a></p>
+            </div>
+        <% end %>
+        <div class="clearfix"></div>
+    </div>
+</div>

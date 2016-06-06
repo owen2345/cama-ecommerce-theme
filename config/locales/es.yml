@@ -1,0 +1,20 @@
+es:
+  themes:
+    e_shop:
+      views:
+        layouts:
+          index:
+            buy_text: 'COMPRAR'
+            shop_collection_now: 'Comprar coleccíon ahora'
+            start_shopping_here: 'Empezar a comprar aqui...'
+        index:
+          free_shipping: 'Envío gratis'
+          follow_us: 'Síguenos'
+
+
+        admin:
+          settings:
+            top_offer_product: 'Producto en Oferta'
+            top_offer: 'Oferta'
+            top_offer_image: 'Foto de oferta'
+            top_offer_percentage: 'Porcentage de descuento'
