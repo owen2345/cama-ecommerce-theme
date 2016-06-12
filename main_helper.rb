@@ -4,7 +4,7 @@ module Themes::EShop::MainHelper
   end
 
   def e_shop_settings(theme)
-    theme.set_field_values(params[:field_options])
+
   end
 
   # callback called after theme installed

@@ -7,6 +7,7 @@
                 <li><a href="<%= product.the_url %>"><img src="<%= product.the_image_url %>" class="img-responsive" alt="" /></a>
                     <div class="product liked-product simpleCart_shelfItem">
                         <a class="like_name" href="<%= product.the_url %>"><%= product.the_title %></a>
+                        <%= product.the_edit_link %>
                         <p><a class="item_add" href="#"><i></i> <span class=" item_price"><%= product.the_price %></span></a></p>
                     </div>
                 </li>
@@ -43,6 +44,7 @@
                         </ul>
                     </div>
                 <% end %>
+                <%= cama_edit_link(cama_admin_appearances_nav_menus_menu_url(slug: 'eshop_footer_main_menu')) %>
                 <div class="clearfix"></div>
             </div>
         </div>

@@ -15,6 +15,7 @@
                 </ul>
             </div>
             <div class="header-right">
+                <%= raw current_site.draw_languages("language-list list-inline pull-left", true) %>
                 <div class="cart box_1">
                     <% if cama_current_user.present? %>
                         <% cart = current_site.carts.set_user(current_user).first_or_create(name: "Cart by #{current_user.id}").decorate %>
@@ -51,12 +52,12 @@
                 <ul class="nav navbar-nav">
                     <% cama_menu_parse_items(current_site.nav_menus.find_by_slug('main_menu').children).each do |item| %>
                         <% if item[:has_children] %>
-                            <li class="dropdown">
+                            <li class="dropdown <%= 'active' if item[:current_parent] %>">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= item[:label] %> <b class="caret"></b></a>
                                 <% if item[:levels] <= 1 %>
                                     <ul class="dropdown-menu">
                                         <% item[:children].each_with_index do |ss_item, index| %>
-                                            <li><a href="<%= ss_item[:url] %>"><%= ss_item[:label] %></a></li>
+                                            <li class="<%= 'active' if ss_item[:current_item] %>"><a href="<%= ss_item[:url] %>"><%= ss_item[:label] %></a></li>
                                         <% end %>
                                     </ul>
                                 <% else %>
@@ -81,11 +82,12 @@
                                 <% end %>
                             </li>
                         <% else %>
-                            <li><a href="<%= item[:url] %>"><%= item[:label] %></a></li>
+                            <li class="<%= 'active' if item[:current_item] %>"><a href="<%= item[:url] %>"><%= item[:label] %></a></li>
                         <% end %>
                     <% end %>
                 </ul>
             </div>
+            <%= cama_edit_link(cama_admin_appearances_nav_menus_menu_url(slug: 'main_menu')) %>
             <!--/.navbar-collapse-->
         </nav>
         <!--/.navbar-->
@@ -113,6 +115,7 @@
                         </ul>
                     </div>
                     <script>$(function () { $("#slider4").responsiveSlides({ auto: true, pager: true, nav: false, speed: 500, namespace: "callbacks", before: function () { $('.events').append("<li>before event fired.</li>"); }, after: function () { $('.events').append("<li>after event fired.</li>"); }}); }); </script>
+                    <%= cama_edit_link(cama_admin_settings_site_path(tab: "theme")) %>
                 </div>
                 <div class="clearfix"> </div>
             </div>

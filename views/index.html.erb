@@ -32,6 +32,7 @@
                     <a href="<%= product.the_url %>">Quick View</a>
                 </div>
                 <a class="product_name" href="<%= product.the_url %>"><%= product.the_title %></a>
+                <%= product.the_edit_link %>
                 <p><a class="item_add" href="#"><i></i> <span class="item_price"><%= product.the_price %></span></a></p>
             </div>
         <% end %>

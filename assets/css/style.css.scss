@@ -151,7 +151,7 @@ a.simpleCart_empty {
 .navbar-collapse.collapse {
     padding: 0;
 }
-.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+.navbar-default .navbar-nav > li.active > a, .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
     background-color: transparent;
     border: 1px solid #816263;
     color: #816263;
@@ -216,7 +216,6 @@ ul.multi-column-dropdown h6 {
     padding: 15px 20px;
 }
 .dropdown-menu.columns-4 {
-  min-width: 750px;
   padding: 15px 20px;
 }
 .banner-bottom-left{
@@ -395,6 +394,16 @@ ul.multi-column-dropdown h6 {
   .callbacks_nav {
     top: 47%;
     }
+}
+@media screen and (max-width: 760px) {
+  #bs-example-navbar-collapse-1 .pull-right{
+    float: none !important;
+  }
+}
+@media screen and (min-width: 960px) {
+  .dropdown-menu.columns-4 {
+    min-width: 750px;
+  }
 }
 /*----*/
 .callbacks_tabs a{

@@ -21,6 +21,7 @@
                 <span><%= raw @post.the_price %></span>
                 <div class="clearfix"></div>
                 <%= raw @post.the_excerpt %>
+                <%= @post.the_edit_link %>
             </div>
             <% @post.the_attribute_fields('ecommerce_attrs').each_with_index do |attr, index| %>
                 <div class="span span<%= index != 1 ? 1 : 2 %>">
