@@ -1,7 +1,7 @@
 <div class="main-content">
     <div class="online-strip">
         <div class="col-md-4 follow-us">
-            <h3>follow us : <a class="btn btn-sm font20" href="#"><i class="fa fa-facebook"></i></a><a class="btn btn-sm font20" href="#"><i class="fa fa-twitter"></i></a></h3>
+          <h3>follow us : <a class="btn btn-sm font20" href="<%= current_theme.get_field('shipping_fb') %>"><i class="fa fa-facebook"></i></a><a class="btn btn-sm font20" href="<%= current_theme.get_field('shipping_twitter') %>"><i class="fa fa-twitter"></i></a><a class="btn btn-sm font20" href="<%= current_theme.get_field('shipping_gplus') %>"><i class="fa fa-google-plus"></i></a></h3>
         </div>
         <div class="col-md-4 shipping-grid">
             <div class="shipping">
@@ -9,13 +9,13 @@
             </div>
             <div class="shipping-text">
                 <h3>Free Shipping</h3>
-                <p>on orders over $ 199</p>
+                <p>on orders over <%= @current_site.current_unit.to_s %> <%= current_theme.get_field('free_shipping') %></p>
             </div>
             <div class="clearfix"></div>
         </div>
         <div class="col-md-4 online-order">
             <p>Order online</p>
-            <h3>Tel:999 4567 8902</h3>
+            <h3>Tel: <%= current_theme.get_field('order_online_tel') %></h3>
         </div>
         <div class="clearfix"></div>
     </div>
