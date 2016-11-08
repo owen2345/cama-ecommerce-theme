@@ -1,0 +1,168 @@
+<!doctype html>
+<!--[if lt IE 7]><html lang="en" class="no-js ie6"><![endif]-->
+<!--[if IE 7]><html lang="en" class="no-js ie7"><![endif]-->
+<!--[if IE 8]><html lang="en" class="no-js ie8"><![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	
+    <%= stylesheet_link_tag theme_asset_path("css/blog") %>
+	<%= stylesheet_link_tag theme_asset_path("css/blog-blue") %>
+    <%= javascript_include_tag theme_asset_path("js/blog.js") %>
+    <%= raw the_head %>
+
+   
+</head>
+
+<body>
+    <!-- Wrap all page content here -->
+    <div id="wrap">
+
+        <!-- Fixed navbar -->
+        <div class="navbar navbar-fixed-top" id="nav" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="<%= current_site.the_url %>">
+                        <%= image_tag current_site.the_logo, class: "img-responsive" %>
+                    </a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                      <%= raw get_nav_menu('main_menu', 'nav navbar-nav nav-menu') %>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!--/.container -->
+        </div>
+        <!--/.navbar -->
+
+       
+
+        <section id="blog">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="article">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-sm-1 col-xs-2">
+                                        <div class="row">
+                                            <div class="type">
+                                                <i class="fa fa-picture-o fa-2x"></i>
+                                            </div>
+                                            <div class="date">
+                                              <%= @post.the_updated_at(:short) %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-11 col-xs-10">
+                                          <% if @post.has_thumb? %>
+                                        <div class="preview">
+                                          <img src="<%= @post.the_thumb_url %>" alt="" class="img-responsive">
+                                        </div>
+                                          <%  end %>
+                                          <h3><a href="<%= @post.the_url %>"><%= @post.the_title %></a></h3>
+                                        <div class="article-details">
+                                            <div class="author">
+                                              <a href="<%= @post.the_author.the_url%>"><i class="fa fa-user"></i> <%= @post.the_author.the_username %>  </a>
+                                            </div>
+                                            <div class="tags">
+                                                 <% tags = @post.the_tags.limit(6).decorate %>
+                                                   <% if tags.present? %>
+                                                     <% tags.each do |post_tag| %>
+                                                <i class="fa fa-tags"></i>
+
+                                                    <a href="<%= post_tag.the_url %>"><%= post_tag.the_title %></a>
+                                                  <% end %>
+                                                 <% end %>
+                                            </div>
+                                        </div>
+										
+										<div class="article-data overflow">
+									    <%=  raw @post.the_content %>
+										</div>
+										
+
+
+                                        <span class="divider"></span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                       <% categories = @post.the_categories.decorate %>
+                        <% if categories.present? %>
+                        <div class="side-block">
+                            <h4>Blog Categories</h4>
+                            <% categories.each do |cat| %>
+                            <ul>
+                              <li><a href="<%= cat.the_url %>"><%= cat.the_title %></a></li>
+                            </ul>
+                            <% end %>
+                            <span class="divider"></span>
+                          </div>
+                           <% end %>
+                        <div class="side-block">
+                            <h4>Latest Posts</h4>
+                            <% current_site.the_post_type('blog').the_posts.limit(4).decorate.each do |post| %>
+                            <div class="media">
+                              <a class="pull-left" href="<%= post.the_url %>">
+                                <img class="media-object" src="<%= post.the_thumb_url %>" alt="...">
+                                </a>
+                                <div class="media-body">
+                                  <%= raw post.the_excerpt(100) %>
+                                    <a href="#">by Admin</a>
+                                </div>
+                            </div>
+                          <% end %>
+                            <span class="divider"></span>
+                        </div>
+                        <% tags = @post.the_tags.decorate %>
+                        <% if tags.present? %>
+                        <div class="side-block">
+                            <h4>tags cloud</h4>
+                            <% tags.each do |post_tag| %>
+                              <a href="<%= post_tag.the_url %>" class="tag"><%= post_tag.the_title %></a>
+                               <% end %>
+                            <span class="divider"></span>
+                          </div>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <footer id="site-footer">
+            <div class="container">
+                <div class="row">
+                    <span class="divider grey"></span>
+                    <h4><%= current_site.name %>'<span class="brandy">s</span> Blog.</h4>
+                    <h5>by <a href="<%= current_site.the_url %>"><%= current_site.name %></a></h5>
+                    <a href="<%= request.original_url %>" class="scroll-top"><img src="<%= theme_asset_url("images/top.png") %>" alt="" class="top"></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!--/wrap-->
+
+</body>
+
+</html>
