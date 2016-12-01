@@ -9,6 +9,7 @@ module Themes::EShop::MainHelper
 
   # callback called after theme installed
   def e_shop_on_install_theme(theme)
+    unless theme.site.nav_menus.where(slug: "eshop_footer_main_menu").present? # verify if theme was installed before
       group = theme.add_field_group({name: "Home Slider", slug: "home_slider", description: ""})
       group.add_field({"name"=>"Text Slider", "slug"=>"home_slider_tabs"},{field_key: "text_box", translate: true, multiple: true})
       group.add_field({"name"=>"Home Slider Image (1000px1000px)", "slug"=>"home_slider_bg"},{field_key: "image" })
@@ -93,7 +94,7 @@ module Themes::EShop::MainHelper
 
   end
 
-  # callback executed after theme uninstalled
+  # callback executed after theme uninstalled (here you can destroy all items created by the theme on installation)
   def e_shop_on_uninstall_theme(theme)
     post_type = current_site.the_post_type('commerce')
     if post_type.present?
