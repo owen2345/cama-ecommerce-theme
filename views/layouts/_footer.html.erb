@@ -3,7 +3,7 @@
     <div class="container">
         <h3 class="like text-center">Featured Collection</h3>
         <ul id="flexiselDemo3">
-            <% current_site.the_post_type('commerce').the_posts.featured.limit(10).decorate.each do |product| %>
+            <% current_site.the_post_type('commerce').the_posts.featured.eager_load(:metas, :field_values).limit(10).decorate.each do |product| %>
                 <li><a href="<%= product.the_url %>"><img src="<%= product.the_image_url %>" class="img-responsive" alt="" /></a>
                     <div class="product liked-product simpleCart_shelfItem">
                         <a class="like_name" href="<%= product.the_url %>"><%= product.the_title %></a>
@@ -18,15 +18,27 @@
 <!-- content-section-ends-here -->
 <div class="news-letter">
     <div class="container">
-        <div class="join">
-            <h6>JOIN OUR MAILING LIST</h6>
-            <div class="sub-left-right">
-                <%= form_tag plugins_cama_subscriber_subscribe_url do %>
-                    <input type="text" name="email" value="Enter Your Email Here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter Your Email Here';}" />
-                    <input type="submit" value="SUBSCRIBE" />
-                <% end %>
+        <div class="row">
+            <div class="col-md-6 join">
+                <div class="sub-left-right" style="margin-top: 33px;">
+                    <%= form_tag(cama_search_path, :method => "get", :class => "") do %>
+                        <input type="text" title="Search:" name="q" value="" placeholder="<%= t("camaleon_cms.common.search") %>..." class="search-field" />
+                        <input type="submit" value="<%= t("camaleon_cms.common.search") %>" class="" />
+                    <% end %>
+                </div>
             </div>
-            <div class="clearfix"> </div>
+            <div class="col-md-6">
+                <div class="join">
+                    <h6>JOIN OUR MAILING LIST</h6>
+                    <div class="sub-left-right">
+                        <%= form_tag plugins_cama_subscriber_subscribe_url do %>
+                            <input type="text" name="email" value="Enter Your Email Here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter Your Email Here';}" />
+                            <input type="submit" value="SUBSCRIBE" />
+                        <% end %>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

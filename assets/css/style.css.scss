@@ -713,7 +713,7 @@ a.like_name {
 	padding: 0;
 }
 .join input[type="text"] {
-	width: 48%;
+	width: 68%;
     color: #C3C3C3;
     letter-spacing: 1px;
     font-weight: 300;
@@ -1764,7 +1764,7 @@ p.click a:hover{
 	width:68%;
 	float:right;
 }
-.contact-left input[type="text"]{
+.contact-left input[type="text"], .contact-left input[type="email"]{
 	width: 100%;
 	color: #000;
 	margin: 0 23px 23px 0;
@@ -1783,7 +1783,7 @@ p.click a:hover{
 	outline: none;
 	border: 1px solid #e8e8e8;
 }
-.contact-form input[type=submit] {
+.contact-form button[type=submit] {
 	border:none;
 	color: #ffffff;
 	padding: 13px 43px;
@@ -1792,7 +1792,7 @@ p.click a:hover{
 	font-weight: 500;
 	background:#816263;
 }
-.contact-form input[type=submit]:hover {
+.contact-form button[type=submit]:hover {
 	background:#000;
 	transition: .5s all;
 	-webkit-transition: .5s all;
@@ -2004,7 +2004,7 @@ ul.qty li p {
     background-color: transparent;
     border-right: 1px solid #E7E7E7;
     border-radius: 0;
-    padding: 0 10px;
+    //padding: 0 10px;
     cursor: pointer;
 }
 .nav-tabs > li > a {
@@ -2019,12 +2019,12 @@ ul.qty li p {
     background-color: transparent;
     border-right: 1px solid #E7E7E7;
     border-radius: 0;
-    padding: 0 10px;
+    //padding: 0 10px;
     cursor: pointer;
 	    font-family: 'PlayfairDisplay-Regular';
 }
 ul.nav.nav-tabs {
-    border-bottom: 1px solid #ddd;
+    //border-bottom: 1px solid #ddd;
     margin-bottom: 15px;
     padding-bottom: 18px;
 }

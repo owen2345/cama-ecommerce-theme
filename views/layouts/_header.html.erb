@@ -15,12 +15,14 @@
                 </ul>
             </div>
             <div class="header-right">
-                <%= raw current_site.draw_languages("language-list list-inline pull-left", true) %>
+                <div>
+                    <%= raw current_site.draw_languages("language-list list-inline pull-left", true) %>
+                    <%= raw e_draw_ecommerce_currencies(false, {class: '', style: 'width: 60px'}) %>
+                </div>
                 <div class="cart box_1">
                     <% if cama_current_user.present? %>
-                        <% cart = current_site.carts.set_user(current_user).first_or_create(name: "Cart by #{current_user.id}").decorate %>
                         <a href="<%= plugins_ecommerce_checkout_cart_path %>">
-                            <h3><span class=""> <%= cart.the_price  %> </span> (<span><%= cart.items_total %></span>)<img src="<%= theme_asset_url("images/bag.png") %>" alt=""></h3>
+                            <h3><span class=""> <%= e_current_cart.the_price  %> </span> (<span><%= e_current_cart.items_total %></span>)<img src="<%= theme_asset_url("images/bag.png") %>" alt=""></h3>
                         </a>
                         <p><a href="<%= plugins_ecommerce_checkout_cart_path %>" class="simpleCart_empty">My cart</a></p>
                     <% end %>
@@ -50,7 +52,7 @@
             <!--/.navbar-header-->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <% cama_menu_parse_items(current_site.nav_menus.find_by_slug('main_menu').children).each do |item| %>
+                    <% cama_menu_parse_items(current_site.nav_menus.where(slug: ['eshop_header_main_menu', 'main_menu']).last.children).each do |item| %>
                         <% if item[:has_children] %>
                             <li class="dropdown <%= 'active' if item[:current_parent] %>">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= item[:label] %> <b class="caret"></b></a>

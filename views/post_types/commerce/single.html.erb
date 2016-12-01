@@ -1,7 +1,7 @@
 <%= content_for :script do %>
     <%= javascript_include_tag theme_asset_path('js/product_manifest') %>
 <% end %>
-<div class="products-page">
+<div class="products-page" id="product_view">
     <%= render 'post_types/commerce/product_sidebar', product: @post %>
     <div class="new-product">
         <div class="col-md-5 zoom-grid">
@@ -18,8 +18,9 @@
         <div class="col-md-7 dress-info">
             <div class="dress-name">
                 <h3><%= @post.the_title %></h3>
-                <span><%= raw @post.the_price %></span>
+                <span id="product_price"><%= raw @post.the_price %></span>
                 <div class="clearfix"></div>
+                <div><strong>SKU: </strong><b id="product_sku"><%= @post.the_sku %></b></div>
                 <%= raw @post.the_excerpt %>
                 <%= @post.the_edit_link %>
             </div>
@@ -34,6 +35,16 @@
                 <% if @post.in_stock? %>
                     <% if @post.the_qty_real.to_i > 0 %>
                         <%= form_tag(plugins_ecommerce_checkout_cart_add_path, :method => "post", :class => "form") do %>
+                            <% if @post.is_variation_product? %>
+                                <div class="form-group">
+                                    <%= label_tag :variation_id %>
+                                    <select class="form-control required" name="variation_id" id="product_variation_id">
+                                        <% @post.product_variations.each_with_index do |variation, index| %>
+                                            <option data-sku="<%= variation.sku %>" <%= 'selected' if index == 0 %> <%= 'disabled' unless @post.in_stock?(variation.id) %> data-price="<%= @post.the_price(variation.id) %>" value="<%= variation.id %>"><%= @post.the_variation_title(variation.id) %></option>
+                                        <% end %>
+                                    </select>
+                                </div>
+                            <% end %>
                             <div class="input-group">
                                 <span class="input-group-addon">Qty: </span>
                                 <%= number_field :cart, :qty, class: 'form-control', value: 1, min: 0, max: @post.the_qty_real.to_i %>
@@ -52,6 +63,14 @@
                     </ul>
                 </div>
                 <div class="clearfix"></div>
+                <% if @post.is_variation_product? %>
+                    <script>
+                        jQuery(function(){
+                            var panel = $('#product_view');
+                            panel.find('#product_variation_id').change(function(){ var op = $(this).find('option:selected'); panel.find('#product_sku').html(op.attr('data-sku')); panel.find('#product_price').html(op.attr('data-price'));  }).trigger('change');
+                        });
+                    </script>
+                <% end %>
             </div>
         </div>
         <div class="clearfix"></div>
