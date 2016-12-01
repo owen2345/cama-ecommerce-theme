@@ -9,6 +9,7 @@
                         <li><a href="<%= plugins_ecommerce_register_url(return_to: site_current_url) %>"><span class="glyphicon glyphicon-lock"></span> Create an Account</a></li>
                     <% else %>
                         <li><a href="<%= cama_current_user.decorate.the_url %>"><span class="fa fa-user"> </span> <%= cama_current_user.the_name %></a></li>
+                        <li><a href="<%= cama_admin_dashboard_path %>"><span class="fa fa-tachometer"> </span> DashBoard </a></li>
                         <li><a href="<%= plugins_ecommerce_orders_path %>"><span class="fa fa-cart"> </span> My Orders</a></li>
                         <li><a href="<%= cama_admin_logout_url(return_to: site_current_url) %>"><span class="fa fa-sign-out"> </span> Logout</a></li>
                     <% end %>
@@ -46,7 +47,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <div class="logo">
-                    <h1><a href="<%= current_site.the_url %>"><span>E</span> -Shop</a></h1>
+                  <h1><a href="<%= current_site.the_url %>"><span>E</span> -<%= current_site.the_title %></a></h1>
                 </div>
             </div>
             <!--/.navbar-header-->
