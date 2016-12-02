@@ -18,7 +18,7 @@
             <div class="header-right">
                 <div>
                     <%= raw current_site.draw_languages("language-list list-inline pull-left", true) %>
-                    <%= raw e_draw_ecommerce_currencies(false, {class: '', style: 'width: 60px'}) %>
+                    <%= raw e_draw_ecommerce_currencies(false, {class: 'form-control', style: 'padding: 2px; height: 23px; width: 45px;'}) %>
                 </div>
                 <div class="cart box_1">
                     <% if cama_current_user.present? %>
