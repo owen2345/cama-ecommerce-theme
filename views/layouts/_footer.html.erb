@@ -3,7 +3,7 @@
     <div class="container">
         <h3 class="like text-center">Featured Collection</h3>
         <ul id="flexiselDemo3">
-            <% current_site.the_post_type('commerce').the_posts.featured.eager_load(:metas, :field_values).limit(10).decorate.each do |product| %>
+            <% current_site.the_post_type('commerce').the_posts.featured.limit(10).decorate.each do |product| %>
                 <li><a href="<%= product.the_url %>"><img src="<%= product.the_image_url %>" class="img-responsive" alt="" /></a>
                     <div class="product liked-product simpleCart_shelfItem">
                         <a class="like_name" href="<%= product.the_url %>"><%= product.the_title %></a>
