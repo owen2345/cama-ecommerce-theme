@@ -98,7 +98,7 @@ module Themes::EShop::MainHelper
   def e_shop_on_uninstall_theme(theme)
     post_type = current_site.the_post_type('commerce')
     if post_type.present?
-      post_type.set_option('posts_feature_image_dimension', current_theme.get_option('backup_posts_feature_image_dimension'))
+      post_type.set_option('posts_image_dimension', current_theme.get_option('backup_posts_feature_image_dimension'))
     end
     #theme.destroy
   end
@@ -112,7 +112,7 @@ module Themes::EShop::MainHelper
   def eshop_ecommerce_after_install(args)
     post_type = current_site.the_post_type('commerce')
     if post_type.present?
-      current_theme.set_option('backup_posts_feature_image_dimension', post_type.get_option('posts_feature_image_dimension'))
+      current_theme.set_option('backup_posts_feature_image_dimension', post_type.get_option('posts_image_dimension'))
       post_type.set_option('posts_image_dimension', '380x480')
       post_type.get_option('posts_thumb_size', '277x396')
       field = post_type.get_field_object('ecommerce_photos')
@@ -142,5 +142,9 @@ module Themes::EShop::MainHelper
             }
         ]
     }
+  end
+
+  def e_shop_custom_product_page(args)
+
   end
 end
