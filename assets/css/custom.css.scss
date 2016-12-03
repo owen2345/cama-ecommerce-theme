@@ -12,3 +12,10 @@ a{
     color: #816263;
   }
 }
+.language-list > li{
+  opacity: 0.5;
+  padding: 0;
+  &.current_l, &:hover{
+    opacity: 1;
+  }
+}
