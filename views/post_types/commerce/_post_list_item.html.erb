@@ -1,0 +1,11 @@
+<% product ||= post %>
+<div class="col-md-4 product simpleCart_shelfItem text-center">
+    <a href="<%= product.the_url %>">
+        <img src="<%= product.the_thumb_url %>" alt="" /></a>
+    <div class="mask">
+        <a href="<%= product.the_url %>">Quick View</a>
+    </div>
+    <a class="product_name" href="<%= product.the_url %>"><%= product.the_title %></a>
+    <%= product.the_edit_link %>
+    <p><a class="item_add" href="#"><i></i> <span class="item_price"><%= product.the_price %></span></a></p>
+</div>
