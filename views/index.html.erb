@@ -9,7 +9,7 @@
             </div>
             <div class="shipping-text">
                 <h3>Free Shipping</h3>
-                <p>on orders over <%= @current_site.current_unit.to_s %> <%= current_theme.get_field('free_shipping') %></p>
+                <p>on orders over <%= @current_site.current_unit.to_s %> 10 <%= current_theme.get_field('free_shipping') %></p>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -24,8 +24,7 @@
         <header>
             <h3 class="head text-center">Latest Products</h3>
         </header>
-        <% current_site.the_products.decorate.each_with_index do |product, index| %>
-            <%= raw "<div class='clearfix'></div>" if index%3 == 0 && index > 0 %>
+        <% (current_site.the_products.decorate).each_with_index do |product, index| %>
             <%= render partial: "post_types/commerce/post_list_item", locals: {product: product} %>
         <% end %>
         <div class="clearfix"></div>

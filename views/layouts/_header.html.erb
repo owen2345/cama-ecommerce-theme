@@ -97,33 +97,19 @@
 </div>
 
 <% if is_home? %>
-    <div class="banner" style="background-image: url('<%= current_theme.get_field('home_slider_bg', theme_asset_url('images/banner_img.jpg')) %>')">
-        <div class="container">
-            <div class="banner-bottom">
-                <div class="banner-bottom-left">
-                    <h2>B<br>U<br>Y</h2>
-                </div>
-                <div class="banner-bottom-right">
-                    <div  class="callbacks_container">
-                        <ul class="rslides" id="slider4">
-                            <% current_theme.the_fields('home_slider_tabs').each do |text| %>
-                                <li>
-                                    <div class="banner-info">
-                                        <h3><%= text %></h3>
-                                        <p><%= t('.start_shopping_here', default: 'Start shopping here...') %></p>
-                                    </div>
-                                </li>
-                            <% end %>
-                        </ul>
+    <div class="camera_wrap" id="home_main_slider">
+        <% current_theme.the_attribute_fields('main_home_slider').each do |slide| %>
+            <div data-src="<%= slide['image'] %>">
+                <div style="position:absolute; top:5%; right:5%; color:#fff; padding:5px; width:55%; text-align: right;" class="camera_caption banner-info">
+                    <h3><%= slide['title'] %></h3>
+                    <p><%= slide['descr'] if slide['descr'].present? %></p>
+                    <div class="shop">
+                        <%= link_to(t('.shop_collection_now', default: 'Shop Collection Now'), current_site.the_post(slide['product'].to_i).the_url) if slide['product'].present? %>
                     </div>
-                    <script>$(function () { $("#slider4").responsiveSlides({ auto: true, pager: true, nav: false, speed: 500, namespace: "callbacks", before: function () { $('.events').append("<li>before event fired.</li>"); }, after: function () { $('.events').append("<li>after event fired.</li>"); }}); }); </script>
-                    <%= cama_edit_link(cama_admin_settings_site_path(tab: "theme")) %>
                 </div>
-                <div class="clearfix"> </div>
             </div>
-            <div class="shop">
-                <a href="<%= current_site.the_posts('commerce').where(id: current_theme.get_field('home_slider_product')).first.try(:decorate).try(:the_url) || '#' %>"><%= t('.shop_collection_now', default: 'Shop Collection Now') %></a>
-            </div>
-        </div>
+        <% end %>
     </div>
+    <div class="clearfix"></div>
+    <script type="application/javascript">jQuery(function(){ $('#home_main_slider').camera({ pagination: false, thumbnails: false}) })</script>
 <% end %>

@@ -13,6 +13,7 @@
 //= require jquery
 //= require camaleon_cms/bootstrap.min.js
 //= require ./simpleCart.min
-//= require ./responsiveslides.min
+//= require ./jquery.camera
+//= require ./jquery.easing
 //= require ./jquery.flexisel
 //= require ./footer

@@ -1,21 +1,19 @@
 module Themes::EShop::MainHelper
   def self.included(klass)
-    # klass.helper_method [:my_helper_method] rescue "" # here your methods accessible from views
+    klass.helper_method [:e_shop_add_main_slider] rescue "" # here your methods accessible from views
   end
 
   def e_shop_settings(theme)
-
   end
 
   # callback called after theme installed
   def e_shop_on_install_theme(theme)
     unless theme.site.nav_menus.where(slug: "eshop_footer_main_menu").present? # verify if theme was installed before
       group = theme.add_field_group({name: "Home Slider", slug: "home_slider", description: ""})
-      group.add_field({"name"=>"Text Slider", "slug"=>"home_slider_tabs"},{field_key: "text_box", translate: true, multiple: true})
-      group.add_field({"name"=>"Home Slider Image (1000px1000px)", "slug"=>"home_slider_bg"},{field_key: "image" })
-      group.add_field({"name"=>"Home Slider Product", "slug"=>"home_slider_product"},{field_key: "select_eval", required: true, command: 'options_from_collection_for_select(current_site.the_posts("commerce").decorate, :id, :the_title)' })
-
-      theme.save_field_value('home_slider_tabs', ['One Click Installation', 'Easy Configuration', 'Easy Administration', 'Shop Online'])
+      # group.add_field({"name"=>"Text Slider", "slug"=>"home_slider_tabs"},{field_key: "text_box", translate: true, multiple: true})
+      # group.add_field({"name"=>"Home Slider Image (1000px1000px)", "slug"=>"home_slider_bg"},{field_key: "image" })
+      # group.add_field({"name"=>"Home Slider Product", "slug"=>"home_slider_product"},{field_key: "select_eval", required: true, command: 'options_from_collection_for_select(current_site.the_posts("commerce").decorate, :id, :the_title)' })
+      # theme.save_field_value('home_slider_tabs', ['One Click Installation', 'Easy Configuration', 'Easy Administration', 'Shop Online'])
 
       menu = current_site.nav_menus.create(name: "E-shop Header Menu", slug: "eshop_header_main_menu")
       menu.append_menu_item({label: "Home", type: "external", link: "root_url"})
@@ -78,6 +76,8 @@ module Themes::EShop::MainHelper
       item.append_menu_item({label: "Accessories", type: "external", link: '#'})
       item.append_menu_item({label: "Kids", type: "external", link: '#'})
       item.append_menu_item({label: "Brands", type: "external", link: '#'})
+
+      e_shop_add_main_slider
     end
 
     if current_site.plugin_installed?('ecommerce')
@@ -124,6 +124,7 @@ module Themes::EShop::MainHelper
     args[:html] << render(partial: theme_view('admin/extra_product_form'), locals:{args: args }) if args[:post_type].slug == 'commerce'
   end
 
+
   def eshop_extra_custom_fields(args)
     args[:fields][:my_slider] = {
         key: 'my_slider',
@@ -146,5 +147,19 @@ module Themes::EShop::MainHelper
 
   def e_shop_custom_product_page(args)
 
+  end
+
+  # add new slider for home page and remove previous structure
+  def e_shop_add_main_slider
+    unless current_theme.get_field_object('main_home_slider').present?
+      current_theme.get_field_object('home_slider_tabs').try(:destroy)
+      current_theme.get_field_object('home_slider_product').try(:destroy)
+      current_theme.get_field_object('home_slider_bg').try(:destroy)
+
+      group = current_theme.get_field_groups.where(slug: 'home_slider').first
+      settings = {field_key: 'my_slider', multiple: true, required: true}
+      group.add_field({name: t('e_shop.admin.slider.title', default: 'Home Slider'), slug: 'main_home_slider', description: t('e_shop.admin.slider.descr', default: 'Enter the slider items for the home page, sample: 1200x300')}, settings)
+      current_theme.save_field_value('main_home_slider', [{image: current_site.the_url(locale:false)[0..-2] << theme_asset_url('images/banner_img.jpg'), title: 'One Click Installation', descr: 'Lorem Ipsum is simply dummy text of the ...'}.to_json, {image: current_site.the_url(locale:false)[0..-2] << theme_asset_url('images/banner_img.jpg'), title: 'Easy Configuration', descr: 'Lorem Ipsum is simply dummy text of ..'}.to_json])
+    end
   end
 end

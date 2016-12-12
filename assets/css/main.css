@@ -12,6 +12,7 @@
  *= require font-awesome
  *= require ./style
  *= require ./flexslider
+ *= require ./jquery.camera
  *= require ./component
  *= require ./custom
  */
