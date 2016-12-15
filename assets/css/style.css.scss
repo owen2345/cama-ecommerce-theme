@@ -61,6 +61,52 @@ label {
   padding-top: 25px;
 }
 
+#product_view{
+  .product_info_col{
+    background: rgba(245, 243, 243, 0.27);
+    padding: 2em;
+  }
+  .product-listy{
+    background:rgb(158, 156, 156);
+    ul.product-list{
+      padding:0em 0 0.5em 0;
+      margin:0.5em 0;
+    }
+    ul.product-list li{
+      display: block;
+      margin:5px 0;
+    }
+    ul.product-list li a{
+      color:#FFF;
+      text-transform:uppercase;
+      font-size:0.85em;
+      text-decoration:none;
+      padding:5px 2em;
+      font-family: 'Doppio One', sans-serif;
+      font-weight:400;
+      display: block;
+    }
+    ul.product-list li a:hover{
+      background:#000;
+      color:#fff;
+      padding:5px 2em;
+      transition:0.5s all;
+      -webkit-transition:0.5s all;
+      -o-transition:0.5s all;
+      -moz-transition:0.5s all;
+      -ms-transition:0.5s all;
+    }
+    h2{
+      color: #fff;
+      background: #816263;
+      font-size: 15px;
+      padding: 23px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+  }
+}
+
 .font20 {
   font-size: 20px;
 }
@@ -967,14 +1013,6 @@ ul.tags_links li a:hover {
 .link1:hover {
   color: #fb4d01;
   text-decoration: none;
-}
-
-.new-product {
-  width: 78%;
-  float: right;
-  background: rgba(245, 243, 243, 0.27);
-  min-height: 800px;
-  padding: 2em;
 }
 
 p.back {
@@ -2500,9 +2538,6 @@ p.right {
   .mens-toolbar .sort {
     width: 22.5%;
   }
-  .new-product {
-    padding: 1.5em;
-  }
   .offer p {
     font-size: 26px;
     padding: 21px 11px;
@@ -2678,14 +2713,8 @@ p.right {
   .contact-map iframe {
     height: 300px;
   }
-  .new-product {
-    width: 72%;
-  }
   .mens-toolbar .sort {
     width: 33.5%;
-  }
-  .new-product {
-    padding: 1em;
   }
   .media-left.response-text-left {
     width: 16%;
@@ -2958,9 +2987,6 @@ p.right {
   }
   .follow-us, .online-order {
     margin-top: 15px;
-  }
-  .new-product {
-    width: 100%;
   }
   .latest-bis img {
     width: 100%;

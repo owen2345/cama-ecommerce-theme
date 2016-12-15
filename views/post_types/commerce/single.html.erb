@@ -1,9 +1,13 @@
 <%= content_for :script do %>
     <%= javascript_include_tag theme_asset_path('js/product_manifest') %>
 <% end %>
-<div class="products-page" id="product_view">
-    <%= render 'post_types/commerce/product_sidebar', product: @post %>
-    <div class="new-product">
+<%= render :partial => "camaleon_cms/flash_messages", locals:{ flash: (flash[:cama_ecommerce] || {}).with_indifferent_access } %>
+<div class="products-page row" id="product_view">
+    <div class="col-md-3">
+        <%= render 'post_types/commerce/product_sidebar', product: @post %>
+    </div>
+
+    <div class="col-md-9 product_info_col">
         <div class="col-md-5 zoom-grid">
             <div class="flexslider">
                 <ul class="slides">
