@@ -11,7 +11,7 @@
         <div class="col-md-5 zoom-grid">
             <div class="flexslider">
                 <ul class="slides">
-                    <% @post.get_fields('ecommerce_photos').each do |img| %>
+                    <% @post.the_photos.each do |img| %>
                         <li data-thumb="<%= img.cama_parse_image_version %>">
                             <div class="thumb-image"> <img src="<%= img %>" data-imagezoom="true" class="img-responsive" alt="" /> </div>
                         </li>
