@@ -9,7 +9,7 @@
 
     <div class="col-md-9 product_info_col">
         <div class="col-md-5 zoom-grid">
-            <div class="flexslider">
+            <div class="flexslider" id="product_slider">
                 <ul class="slides">
                     <% @post.the_photos.each do |img| %>
                         <li data-thumb="<%= img.cama_parse_image_version %>">
